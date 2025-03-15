@@ -12,4 +12,7 @@ for dir in "${files[@]}"; do
 done
 
 echo "=> Syncing wallpaper"
-rclone sync -P "$HOME/Downloads/Wallpaper" gdrive:backup/Wallpaper
+rclone sync -P "$HOME/Pictures/Wallpaper" gdrive:backup/Wallpaper
+
+echo "=> Syncing Scripts"
+rclone sync -P "$HOME/Downloads/Scripts" gdrive:backup/Scripts
