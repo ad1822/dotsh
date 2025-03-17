@@ -10,6 +10,10 @@ if git status --porcelain | grep -q " M "; then
     commit_msg="Changes in: $changes"
     echo $commit_msg
 
+    eval "$(ssh-agent -s)" > /dev/null
+    ssh-add ~/.ssh/github
+
+    git slog
     git add .
     git commit -m "$commit_msg"
     git push origin main
