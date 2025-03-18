@@ -15,3 +15,7 @@ rclone copy -P gdrive:backup/Wallpaper "$HOME/Pictures/Wallpaper"
 
 echo "=> Restoring Scripts"
 rclone copy -P gdrive:backup/Scripts "$HOME/Downloads/Scripts"
+
+
+echo "=> Restoring Local Scripts"
+rclone copy -P gdrive:backup/bin "$HOME/.local/bin"

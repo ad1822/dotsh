@@ -9,3 +9,6 @@ for dir in "${files[@]}"; do
     echo "syncing with hyprdots $dir"
     cp -ru ~/.config/$dir ~/hyprdots
 done
+
+echo "=> Syncing Local Scripts"
+cp -ru "$HOME/.local/bin" ~/hyprdots

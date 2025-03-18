@@ -16,3 +16,6 @@ rclone sync -P "$HOME/Pictures/Wallpaper" gdrive:backup/Wallpaper
 
 echo "=> Syncing Scripts"
 rclone sync -P "$HOME/Downloads/Scripts" gdrive:backup/Scripts
+
+echo "=> Syncing Local Scripts"
+rclone sync -P "$HOME/.local/bin" gdrive:backup/bin
