@@ -3,7 +3,7 @@
 set -e
 
 eval "$(ssh-agent -s)" > /dev/null
-ssh-add ~/.ssh/github
+ssh-add ~/.ssh/github1z
 
 if [ -z "$1" ] || [ -z "$2" ]; then
     echo "Usage: $0 <commit-message> <branch-name>"
