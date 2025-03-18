@@ -12,3 +12,7 @@ done
 
 echo "=> Syncing Local Scripts"
 cp -ru "$HOME/.local/bin" ~/hyprdots
+
+
+echo "=> Syncing .zshrc"
+cp -ru "$HOME/.zshrc" ~/hyprdots/zsh/.zshrc

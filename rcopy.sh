@@ -19,3 +19,6 @@ rclone copy -P gdrive:backup/Scripts "$HOME/Downloads/Scripts"
 
 echo "=> Restoring Local Scripts"
 rclone copy -P gdrive:backup/bin "$HOME/.local/bin"
+
+echo "=> Restoring Zshrc"
+rclone copy -P gdrive:backup/config/.zshrc/.zshrc "$HOME/.zshrc"
