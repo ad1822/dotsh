@@ -15,10 +15,10 @@ echo "=> Syncing wallpaper"
 rclone sync -P "$HOME/Pictures/Wallpaper" gdrive:backup/Wallpaper
 
 echo "=> Syncing Scripts"
-rclone sync -P "$HOME/Downloads/Scripts" gdrive:backup/Scripts
+rclone sync -P "$HOME/SideProjects/Scripts" gdrive:backup/Scripts
 
-echo "=> Syncing Local Scripts"
-rclone sync -P "$HOME/.local/bin" gdrive:backup/bin
+# echo "=> Syncing Local Scripts"
+# rclone sync -P "$HOME/.local/bin" gdrive:backup/bin
 
 # echo "=> Syncing .zshrc"
 # rclone sync -P ~/.zshrc gdrive:backup/config/.zshrc

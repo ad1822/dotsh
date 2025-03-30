@@ -11,6 +11,7 @@ if [ -z "$1" ] || [ -z "$2" ]; then
     exit 1
 fi
 
+git s5
 git status
 git add .
 git commit -m "$1"
