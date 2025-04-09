@@ -26,5 +26,5 @@ mkdir -p "$(dirname "$CONFIG_PATH")"
 pkill hyprpaper
 hyprctl dispatch exec "hyprpaper"
 
-notify-send -a "hyprpaper" "Wallpaper Changed" "$(basename "$WALLPAPER")" -i "$WALLPAPER"
+notify-send -a "hyprpaper" "Wallpaper Changed"  -i "$WALLPAPER"
 echo "Wallpaper set to: $WALLPAPER"
