@@ -31,6 +31,9 @@ echo -e "\n\e[1;36m 📦 Git status:\e[0m"
 git ss
 git add .
 git commit -m "$1"
-git push origin "$2"
+PUSH_OUTPUT=$(git push origin "$2" 2>&1)
+
+echo -e "\n\e[1;36m$PUSH_OUTPUT\e[0m"
+
 
 echo -e "\e[1;32m ✔ Changes pushed successfully to \e[1;34morigin/$2\e[0m."
