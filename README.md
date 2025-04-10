@@ -22,3 +22,5 @@
     ├── setup.sh
     ├── sysmaintenance.sh
     └── total.txt
+
+5 directories, 19 files
