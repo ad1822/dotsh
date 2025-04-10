@@ -1,3 +1,6 @@
+# Scripts for Automation & Productivity
+
+```
 .
 ├── gh
 │   ├── hub-push.sh
@@ -22,5 +25,4 @@
     ├── setup.sh
     ├── sysmaintenance.sh
     └── total.txt
-
-5 directories, 19 files
+```
