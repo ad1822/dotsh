@@ -11,15 +11,29 @@ cat <<'EOF' | lolcat
 
 EOF
 
-
 TARGET="$HOME/Pictures/Wallpaper"
-WALLPAPER=$(find "$TARGET" -type f -regex '.*\.jpg' | shuf -n 1)
+DEST_DIR="/usr/share/sddm/themes/catppuccin-mocha/backgrounds"
+TEMP_IMG="$HOME/sddm.jpg"
+DEST_FILE="$DEST_DIR/sddm.jpg"
+
+WALLPAPER=$(find "$TARGET" -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' \) | shuf -n 1)
+
+echo $WALLPAPER
+
+if [[ -z "$WALLPAPER" ]]; then
+    echo "No supported image files found in $TARGET."
+    exit 1
+fi
 
 echo "Selected wallpaper: $WALLPAPER"
 
-DEST_DIR="/usr/share/sddm/themes/catppuccin-mocha/backgrounds"
-DEST_FILE="$DEST_DIR/sddm2.jpg"
+magick "$WALLPAPER" "$TEMP_IMG"
 
-sudo cp "$WALLPAPER" "$DEST_FILE"
+if [[ ! -d "$DEST_DIR" ]]; then
+    echo "Destination directory does not exist: $DEST_DIR"
+    exit 1
+fi
 
-echo "Wallpaper updated successfully!"
+sudo cp "$TEMP_IMG" "$DEST_FILE"
+
+echo "SDDM wallpaper updated successfully!"
