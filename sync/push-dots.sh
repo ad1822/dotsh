@@ -1,24 +1,51 @@
 #!/bin/bash
 
+cat <<'EOF' | lolcat
+   * *
+*   * *
+ **    **
+
+  *     *
+       *
+ *   *
+
+      *
+*
+   *
+EOF
+
+
 cd ~/hyprdots || exit
 
 if git status --porcelain | grep -q " M "; then
-    changes=$(git status --porcelain | grep " M " | awk '{print $2}' | awk -F'/' '{print $1}' | sort -u | tr '\n' ', ')
+    changes=$(git status --porcelain | awk '$1 == "M" || $1 == " M" {print $2}' | awk -F'/' '{print $1}' | sort -u )
 
-    changes=${changes%  }
-
-    commit_msg="Changes in: $changes"
-    echo $commit_msg
+    if [ -z "$changes" ]; then
+        commit_msg="changes: no tracked modifications"
+    else
+        commit_msg="changes: $changes"
+    fi
 
     eval "$(ssh-agent -s)" > /dev/null
-    ssh-add ~/.ssh/github
+    OUTPUT=$(ssh-add ~/.ssh/github 2>&1)
 
-    git s5
+    if [[ $OUTPUT =~ Identity\ added:\ .*\((.*)\) ]]; then
+      EMAIL=${BASH_REMATCH[1]}
+      echo -e "\e[1;32m ✔ Identity added for:\e[0m \e[1;33m$EMAIL\e[0m"
+    else
+      echo -e "\e[1;31m✖ Failed to add identity\e[0m"
+      echo -e "\e[0;90m$OUTPUT\e[0m"
+    fi
+
+    echo -e "\n\e[1;36m 📦 Git status:\e[0m"
+    git ss
     git add .
     git commit -m "$commit_msg"
-    git push origin main
+    PUSH_OUTPUT=$(git push origin main)
 
-    echo "Changes committed and pushed: $commit_msg"
+    echo -e "\n\e[1;36m$PUSH_OUTPUT\e[0m"
+
+    echo -e "\e[1;32m ✔ Changes committed and pushed: $commit_msg\e[0m."
 else
     echo "No changes to commit."
 fi

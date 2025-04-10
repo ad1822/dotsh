@@ -1,24 +1,23 @@
 #!/bin/bash
 
+CYAN="\e[36m"
+PURPLE="\e[0;35m"
+GREEN="\e[32m"
+YELLOW="\e[33m"
+RESET="\e[0m"
+
 files=("hypr" "waybar" "cava" "fastfetch" "gtk-3.0" "gtk-4.0" "hypridle" "kitty" "k9s" "rofi" "yazi" "starship" "dunst")
 
-
-echo "=> Syncing Obsidian Vault"
-rclone sync -P "$HOME/Obsidian Vault" gdrive:backup/Obsidian
+echo -e "${PURPLE}📁 => Syncing Obsidian Vault...${RESET}"
+rclone sync -P "$HOME/Obsidian Vault" gdrive:backup/Obsidian  --exclude=".git/**" && echo -e "${GREEN}✔ Obsidian Vault synced!${RESET}\n"
 
 for dir in "${files[@]}"; do
-    echo "=> Syncing $dir"
-    rclone sync -P "$HOME/.config/$dir" "gdrive:backup/config/$dir"
+    echo -e "${CYAN}⚙️  => Syncing ${YELLOW}${dir}${CYAN} config...${RESET}"
+    rclone sync -P "$HOME/.config/$dir" "gdrive:backup/config/$dir" && echo -e "${GREEN}✔ ${dir} synced!${RESET}\n"
 done
 
-echo "=> Syncing wallpaper"
-rclone sync -P "$HOME/Pictures/Wallpaper" gdrive:backup/Wallpaper
+echo -e "${GREEN}🖼  => Syncing Wallpapers...${RESET}"
+rclone sync -P "$HOME/Pictures/Wallpaper" gdrive:backup/Wallpaper && echo -e "${GREEN}✔ Wallpapers synced!${RESET}\n"
 
-echo "=> Syncing Scripts"
-rclone sync -P "$HOME/SideProjects/Scripts" gdrive:backup/Scripts
-
-# echo "=> Syncing Local Scripts"
-# rclone sync -P "$HOME/.local/bin" gdrive:backup/bin
-
-# echo "=> Syncing .zshrc"
-# rclone sync -P ~/.zshrc gdrive:backup/config/.zshrc
+echo -e "${CYAN}📜 => Syncing Scripts...${RESET}"
+rclone sync -P "$HOME/SideProjects/dotsh" gdrive:backup/dotsh --exclude=".git/**" && echo -e "${GREEN}✔ Scripts synced!${RESET}\n"

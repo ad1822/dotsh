@@ -2,7 +2,7 @@
 
 set -e
 
-cat <<'EOF'
+cat <<'EOF' | lolcat
 
 ┌─┐┬┌┬┐┬ ┬┬ ┬┌┐
 │ ┬│ │ ├─┤│ │├┴┐
