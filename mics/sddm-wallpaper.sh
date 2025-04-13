@@ -18,14 +18,12 @@ DEST_FILE="$DEST_DIR/sddm.jpg"
 
 WALLPAPER=$(find "$TARGET" -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' \) | shuf -n 1)
 
-echo $WALLPAPER
 
 if [[ -z "$WALLPAPER" ]]; then
     echo "No supported image files found in $TARGET."
     exit 1
 fi
 
-echo "Selected wallpaper: $WALLPAPER"
 
 magick "$WALLPAPER" "$TEMP_IMG"
 
@@ -35,5 +33,6 @@ if [[ ! -d "$DEST_DIR" ]]; then
 fi
 
 sudo cp "$TEMP_IMG" "$DEST_FILE"
+rm $TEMP_IMG
 
-echo "SDDM wallpaper updated successfully!"
+notify-send -a "hyprpaper" "Lock Screen Wallpaper Changed"  -i "$WALLPAPER"

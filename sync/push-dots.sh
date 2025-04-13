@@ -18,7 +18,7 @@ EOF
 cd ~/hyprdots || exit
 
 if git status --porcelain | grep -q " M "; then
-    changes=$(git status --porcelain | awk '$1 == "M" || $1 == " M" {print $2}' | awk -F'/' '{print $1}' | sort -u )
+    changes=$(git status --porcelain | grep " M " | awk '{print $2}' | awk -F'/' '{print $1}' | sort -u | tr '\n' ', ')
     
     if [ -z "$changes" ]; then
         commit_msg="changes: no tracked modifications"
