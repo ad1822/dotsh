@@ -37,3 +37,9 @@ echo -e "\n\e[1;36m$PUSH_OUTPUT\e[0m"
 
 
 echo -e "\e[1;32m ✔ Changes pushed successfully to \e[1;34morigin/$2\e[0m."
+
+notify-send -u normal -a "GitHub" \
+-h string:desktop-entry:github \
+"$repo: Push Successful" \
+"<i>Branch:</i> <span foreground='#61afef'>main</span>\n<i>Remote:</i> <span foreground='#e5c07b'>origin/main</span>"
+
