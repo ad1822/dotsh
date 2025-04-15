@@ -38,4 +38,9 @@ echo -e "\n\e[1;36m$PUSH_OUTPUT\e[0m"
 
 echo -e "\e[1;32m ✔ Changes pushed successfully to \e[1;34morigin/$2\e[0m."
 
-notify-send -a "Github" "✔ Changes pushed successfully to origin $2"
+repo=$(basename "$(git rev-parse --show-toplevel)")
+
+notify-send -u normal -a "GitHub" \
+"<b><span foreground='#44cc44'>✅ $repo: Push Successful</span></b>" \
+"<i>Branch:</i> <span foreground='#61afef'>$2</span>\n<i>Remote:</i> <span foreground='#e5c07b'>origin/$2</span>"
+
