@@ -19,15 +19,46 @@ repo="$HOME/SideProjects/dotsh/sync/push-dots.sh"
 cloud="$HOME/SideProjects/dotsh/sync/rsync.sh"
 obsidian="$HOME/SideProjects/dotsh/sync/sync-obsidian-vault.sh"
 
+notify-send -u normal -a "Sync" "🔄 Starting: Hyprdots Sync"
 echo -e "${CYAN}===> Syncing Hyprdots...${RESET}"
-bash "$hyprdots" && echo -e "${GREEN} ✔ Hyprdots synced successfully!${RESET}\n" || echo -e "${YELLOW}✖ Failed to sync Hyprdots${RESET}\n"
+if bash "$hyprdots"; then
+    echo -e "${GREEN} ✔ Hyprdots synced successfully!${RESET}\n"
+    notify-send -u normal -a "Sync" "✅ Hyprdots Sync Complete"
+else
+    echo -e "${YELLOW}✖ Failed to sync Hyprdots${RESET}\n"
+    notify-send -u critical -a "Sync" "❌ Hyprdots Sync Failed"
+fi
 
+
+notify-send -u normal -a "GitHub" "🔼 Starting: Push to Hyprdots Repo"
 echo -e "${CYAN}===> Pushing to ${GREEN}Hyprdots ${CYAN}on GitHub  ...${RESET}"
-bash "$repo" && echo -e "${GREEN} ✔ Changes pushed to GitHub!${RESET}\n" || echo -e "${YELLOW}✖ GitHub push failed${RESET}\n"
+if bash "$repo"; then
+    echo -e "${GREEN} ✔ Changes pushed to GitHub!${RESET}\n"
+    notify-send -u normal -a "GitHub" "✅ Hyprdots Push Complete"
+else
+    echo -e "${YELLOW}✖ GitHub push failed${RESET}\n"
+    notify-send -u critical -a "GitHub" "❌ Hyprdots Push Failed"
+fi
 
+
+notify-send -u normal -a "Cloud" "☁️ Starting: Cloud Sync"
 echo -e "${CYAN}===> Syncing with Cloud...${RESET}"
-bash "$cloud" && echo -e "${GREEN} ✔ Cloud sync complete!${RESET}\n" || echo -e "${YELLOW}✖ Cloud sync failed${RESET}\n"
+if bash "$cloud"; then
+    echo -e "${GREEN} ✔ Cloud sync complete!${RESET}\n"
+    notify-send -u normal -a "Cloud" "✅ Cloud Sync Complete"
+else
+    echo -e "${YELLOW}✖ Cloud sync failed${RESET}\n"
+    notify-send -u critical -a "Cloud" "❌ Cloud Sync Failed"
+fi
 
 
+notify-send -u normal -a "Obsidian" "🔼 Starting: Push to Obsidian Vault"
 echo -e "${CYAN}===> Pushing to ${GREEN}Obsidian Vault ${CYAN}on GitHub  ...${RESET}"
-bash "$obsidian" && echo -e "${GREEN} ✔ Changes pushed to GitHub!${RESET}\n" || echo -e "${YELLOW}✖ GitHub push failed${RESET}\n"
+if bash "$obsidian"; then
+    echo -e "${GREEN} ✔ Changes pushed to GitHub!${RESET}\n"
+    notify-send -u normal -a "Obsidian" "✅ Obsidian Vault Push Complete"
+else
+    echo -e "${YELLOW}✖ GitHub push failed${RESET}\n"
+    notify-send -u critical -a "Obsidian" "❌ Obsidian Vault Push Failed"
+fi
+
