@@ -40,8 +40,8 @@ echo -e "\e[1;32m ✔ Changes pushed successfully to \e[1;34morigin/$2\e[0m."
 
 repo=$(basename "$(git rev-parse --show-toplevel)")
 
-notify-send -u normal -a "GitHub" \
+ notify-send -u normal -a "GitHub" \
 -h string:desktop-entry:github \
-"<b><span foreground='#44cc44'>✅ $repo: Push Successful</span></b>" \
-"<i>Branch:</i> <span foreground='#61afef'>$2</span>\n<i>Remote:</i> <span foreground='#e5c07b'>origin/$2</span>"
+"$repo: Push Successful" \
+"<i>Branch:</i> <span foreground='#61afef'>main</span>\n<i>Remote:</i> <span foreground='#e5c07b'>origin/main</span>"
 
