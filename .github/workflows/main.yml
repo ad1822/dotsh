@@ -17,8 +17,9 @@ jobs:
           echo "Successfully modified file"
           git config --global user.email "ayushdumasia00@gmail.com"
           git config --global user.name "action bot"
+          git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/ad1822/dotsh.git
           git add ./test.txt
           git commit -m "Modify test.txt by bot"
-          git push https://${{ secrets.GH_PAT }}@github.com/ad1822/dotsh.git main
+          git push origin main
         env:
-          GITHUB_TOKEN: ${{secrets.GH_PAT}}
+          GH_PAT: ${{secrets.GH_PAT}}
