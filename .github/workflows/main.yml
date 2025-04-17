@@ -19,6 +19,6 @@ jobs:
           git config --global user.name "action bot"
           git add ./test.txt
           git commit -m "Modify test.txt by bot"
-          git push origin main
+          git push https://${{ secrets.GH_PAT }}@github.com/ad1822/dotsh.git main
         env:
           GITHUB_TOKEN: ${{secrets.GH_PAT}}
