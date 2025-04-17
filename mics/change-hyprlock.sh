@@ -1,0 +1,26 @@
+#!/bin/bash
+
+
+cat << 'EOF' | lolcat
+
+.  .         .      .  
+|__|  .._ ._.| _  _.;_/
+|  |\_|[_)[  |(_)(_.| \
+    ._||               
+
+EOF
+
+
+TARGET="$HOME/Pictures/Wallpaper"
+HYPR=~/.config/hypr/
+cd $HYPR
+
+
+
+WALLPAPER=$(find "$TARGET" -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' \) | shuf -n 1)
+
+sed -i "s|^[ ]*path = .*|  path = ${WALLPAPER}|g" hyprlock.conf
+
+
+notify-send -a "hyprlock" "Hyprlock Screen Wallpaper Changed"  -i "$WALLPAPER"
+
