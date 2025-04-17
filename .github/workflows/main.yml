@@ -20,6 +20,4 @@ jobs:
           git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/ad1822/dotsh.git
           git add ./test.txt
           git commit -m "Modify test.txt by bot"
-          git push origin main
-        env:
-          GH_PAT: ${{secrets.GH_PAT}}
+          git push https://${{ secrets.GH_PAT }}@github.com/ad1822/dotsh.git main
