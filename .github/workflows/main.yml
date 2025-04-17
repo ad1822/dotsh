@@ -1,0 +1,22 @@
+name: Modify File
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  modify-file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Modify file
+        run: |
+          echo "Modified content" > ./test.txt
+          echo "Successfully modified file"
+          git add ./test.txt
+          git commit -m "Modify test.txt by bot"
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{secrets.GH_PAT}}
