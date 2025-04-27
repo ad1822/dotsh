@@ -17,7 +17,7 @@ GREEN="\e[32m"
 YELLOW="\e[33m"
 RESET="\e[0m"
 
-files=("hypr" "waybar" "cava" "fastfetch" "gtk-3.0" "gtk-4.0" "hypridle" "kitty" "k9s" "rofi" "yazi" "starship" "dunst")
+files=("hypr" "git" "waybar" "cava" "fastfetch" "gtk-3.0" "gtk-4.0" "hypridle" "kitty" "k9s" "rofi" "yazi" "starship" "dunst")
 
 echo -e "${PURPLE}==> Syncing Obsidian Vault...${RESET}"
 rclone sync -P "$HOME/Obsidian Vault" gdrive:backup/Obsidian  --exclude=".git/**" && echo -e "${GREEN}✔ Obsidian Vault synced!${RESET}\n"
