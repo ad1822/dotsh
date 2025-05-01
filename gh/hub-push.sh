@@ -29,7 +29,7 @@ fi
 # git s5
 echo -e "\n\e[1;36m 📦 Git status:\e[0m"
 git ss
-git add .
+git ap
 git commit -m "$1"
 PUSH_OUTPUT=$(git push origin "$2" 2>&1)
 
