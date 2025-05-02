@@ -22,7 +22,7 @@ FINAL_SUMMARY="$TYPE: $SUMMARY"
 
 echo -e "\n📦 Commit Preview:"
 
-echo -e "\033[1;32m$TYPE\033[0m \033[1;33m\033[0m : \033[1;36m$SUMMARY\033[0m"
+echo -e "\033[1;32m$TYPE\033[0m \033[1;33m\033[0m: \033[1;36m$SUMMARY\033[0m"
 
 echo ""
 
