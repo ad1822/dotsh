@@ -3,25 +3,34 @@
 set -e
 
 TYPE=$(gum choose --header="Select the commit type:" \
-"feat" "fix" "docs" "style" "refactor" "test" "chore" "revert")
+  "feat" "fix" "docs" "style" "refactor" "test" "chore" "revert")
 
-SCOPE=$(gum input --placeholder "Optional scope (e.g. parser)")
-if [[ -n "$SCOPE" ]]; then
-    SCOPE="(${SCOPE})"
+EMOJI=$(gum choose --header="Choose an emoji (optional):" \
+  "🚀" "🐛" "📝" "🎨" "🔨" "✅" "🔁" "📦" "❌" "⬆️" "⬇️" "🔥" "None")
+
+[[ "$EMOJI" == "None" ]] && EMOJI=""
+
+SUMMARY=$(gum input --placeholder "Summary of this change (e.g., Add logging to payment flow)")
+if [[ -z "$SUMMARY" ]]; then
+  echo "❌ Summary is required. Exiting."
+  exit 1
 fi
 
-EMOJI=$(gum choose --no-limit --header="Pick an optional emoji:" \
-"🚀" "🐛" "📝" "🎨" "🔧" "♻️" "✅" "⏪️" "❓" "❗" "🚨" "📦" "🔖" "🔒️" "⬆️" "⬇️" "No emoji")
+DESCRIPTION=$(gum write --placeholder "Details (Optional)")
 
-[[ "$EMOJI" == "No emoji" ]] && EMOJI=""
+FINAL_SUMMARY="$TYPE $EMOJI : $SUMMARY"
 
-SUMMARY=$(gum input --value "$TYPE$SCOPE: " --placeholder "Summary (required)")
-#if [[ -z "$SUMMARY" ]]; then
-#    echo "❌ Summary cannot be empty."
-#    exit 1
-#fi
+echo -e "\n📦 Commit Preview:"
+#echo "$FINAL_SUMMARY"
+echo -e "\033[1;32m$TYPE\033[0m \033[1;33m$EMOJI\033[0m : \033[1;36m$SUMMARY\033[0m"
 
-DESCRIPTION=$(gum write --placeholder "Optional: Add a longer description...")
+echo ""
 
-gum confirm "Commit changes with message: $SUMMARY ?" && \
-git commit -m "$EMOJI $SUMMARY" -m "$DESCRIPTION"
+[[ -n "$DESCRIPTION" ]] && echo "$DESCRIPTION"
+
+if gum confirm "Commit with above message?"; then
+  git commit -m "$FINAL_SUMMARY" ${DESCRIPTION:+-m "$DESCRIPTION"}
+else
+  echo "❌ Commit cancelled."
+fi
+
