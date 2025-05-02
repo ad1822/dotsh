@@ -35,7 +35,8 @@ fi
 echo -e "\n\e[1;36m 📦 Git status:\e[0m"
 git ss
 git ap
-git ci
+# git
+bash ~/SideProjects/dotsh/gh/commit.sh
 PUSH_OUTPUT=$(git push origin "$1" 2>&1)
 
 echo -e "\n\e[1;36m$PUSH_OUTPUT\e[0m"
