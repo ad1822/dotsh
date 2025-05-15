@@ -49,4 +49,4 @@ repo=$(basename "$(git rev-parse --show-toplevel)")
 notify-send -u normal -a "GitHub" \
 -h string:desktop-entry:github \
 "$repo: Push Successful" \
-"<i>Branch:</i> <span foreground='#61afef'>main</span>\n<i>Remote:</i> <span foreground='#e5c07b'>origin/main</span>"
+"<i>Branch:</i> <span foreground='#61afef'>$1</span>\n<i>Remote:</i> <span foreground='#e5c07b'>origin/$1</span>"

@@ -3,7 +3,7 @@
 set -e
 
 TYPE=$(gum choose --header="Select the commit type:" \
-"feat ✨" "fix 🐛" "fix 🐞" "docs 📝" "docs 📜" "style 💅" "style 🎨" "refactor 🔨" "test 🧪" "test 🚦" "chore 🔧" "revert 🔁" "BREAKING CHANGES ❌" "BREAKING CHANGES 🚨")
+"feat ✨" "fix 🐛" "fix 🐞" "docs 📝" "docs 📜" "ci 🦊" "logs 🪵"  "style 💅" "style 🎨" "refactor 🔨" "test 🧪" "test 🚦" "chore 🔧" "revert 🔁" "BREAKING CHANGES ❌" "BREAKING CHANGES 🚨")
 
 # EMOJI=$(gum choose --header="Choose an emoji (optional):" \
 # "✨" "🚀" "🐛" "🐞" "📝" "🩹" "💅" "🎨" "🦊" "🧹" "🔧" "📜" "🧪"  "🔨" "✅" "🔁" "📦" "❌" "🚨"  "🔥")
