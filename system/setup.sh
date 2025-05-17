@@ -3,15 +3,15 @@
 echo "Running Script"
 
 # Define path for package list
-path="$HOME/Downloads/Scripts/download_packages.txt"
+# path="$HOME/Downloads/Scripts/download_packages.txt"
 
-# Install pacman packages from the list
-if [[ -f "$path" ]]; then
-    sudo pacman -S --needed - < "$path"
-else
-    echo "Package list not found: $path"
-    exit 1
-fi
+# # Install pacman packages from the list
+# if [[ -f "$path" ]]; then
+#     sudo pacman -S --needed - < "$path"
+# else
+#     echo "Package list not found: $path"
+#     exit 1
+# fi
 
 # Create fonts directory
 mkdir -p ~/.local/share/fonts/fontawesome
@@ -22,7 +22,7 @@ if [[ ! -f ~/.local/share/fonts/fontawesome/fa-brands-400.ttf ]]; then
     unzip fontawesome-free-6.7.2-desktop.zip -d ~/.local/share/fonts/fontawesome
     # mv fontawesome6/otfs/*.otf ~/.local/share/fonts/fontawesome/
     rm -rf fontawesome6 fontawesome-free-6.7.2-desktop.zip
-
+    
     wget -q https://use.fontawesome.com/releases/v5.15.4/fontawesome-free-5.15.4-desktop.zip
     unzip fontawesome-free-5.15.4-desktop.zip -d ~/.local/share/fonts/fontawesome
     # mv fontawesome5/otfs/*.otf ~/.local/share/fonts/fontawesome/
