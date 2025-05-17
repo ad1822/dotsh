@@ -26,8 +26,9 @@ else
     echo -e "\e[0;90m$OUTPUT\e[0m"
 fi
 
-# git s5
+
 echo -e "\n\e[1;36m 📦 Git status:\e[0m"
+
 git ss
 git add --patch
 bash ~/SideQuests/dotsh/gh/commit
