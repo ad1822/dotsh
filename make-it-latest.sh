@@ -2,7 +2,7 @@
 
 set -e  # Stop on error
 
-cd ~/SideProjects/dotsh || exit 1
+cd ~/SideQuests/dotsh || exit 1
 
 for dir in gh mics sync; do
     echo "📂 Processing $dir"

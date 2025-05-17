@@ -2,18 +2,13 @@
 
 set -e
 
-cat <<'EOF' | lolcat
+# cat <<'EOF' | lolcat
 
-┌─┐┬┌┬┐┬ ┬┬ ┬┌┐
-│ ┬│ │ ├─┤│ │├┴┐
-└─┘┴ ┴ ┴ ┴└─┘└─┘
+# ┌─┐┬┌┬┐┬ ┬┬ ┬┌┐
+# │ ┬│ │ ├─┤│ │├┴┐
+# └─┘┴ ┴ ┴ ┴└─┘└─┘
 
-EOF
-
-# if [ -z "$1" ] || [ -z "$2" ]; then
-#     echo -e "Usage: \e[0;31m ❌ hub-push.sh <commit-message> <branch-name>\e[0m"
-#     exit 1
-# fi
+# EOF
 
 if [ -z "$1" ] ; then
     echo -e "Usage: \e[0;31m ❌ take-my-code <branch-name>\e[0m"
@@ -34,9 +29,8 @@ fi
 # git s5
 echo -e "\n\e[1;36m 📦 Git status:\e[0m"
 git ss
-git ap
-# git
-bash ~/SideProjects/dotsh/gh/commit.sh
+git add --patch
+bash ~/SideQuests/dotsh/gh/commit
 PUSH_OUTPUT=$(git push origin "$1" 2>&1)
 
 echo -e "\n\e[1;36m$PUSH_OUTPUT\e[0m"
