@@ -14,10 +14,10 @@ GREEN="\e[32m"
 YELLOW="\e[33m"
 RESET="\e[0m"
 
-hyprdots="$HOME/SideProjects/dotsh/sync/sync-dots.sh"
-repo="$HOME/SideProjects/dotsh/sync/push-dots.sh"
-cloud="$HOME/SideProjects/dotsh/sync/rsync.sh"
-obsidian="$HOME/SideProjects/dotsh/sync/sync-obsidian-vault.sh"
+hyprdots="$HOME/SideQuests/dotsh/sync/sync-dots"
+repo="$HOME/SideQuests/dotsh/sync/push-dots"
+cloud="$HOME/SideQuests/dotsh/sync/rsync"
+obsidian="$HOME/SideQuests/dotsh/sync/sync-obsidian-vault"
 
 notify-send -u normal -a "Sync" "🔄 Starting: Hyprdots Sync"
 echo -e "${CYAN}===> Syncing Hyprdots...${RESET}"
@@ -61,4 +61,3 @@ else
     echo -e "${YELLOW}✖ GitHub push failed${RESET}\n"
     notify-send -u critical -a "Obsidian" "❌ Obsidian Vault Push Failed"
 fi
-

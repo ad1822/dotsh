@@ -13,11 +13,6 @@ if [[ -z "$SUMMARY" ]]; then
     exit 1
 fi
 
-# echo -e "🔖 Type:      \033[1;32m$TYPE\033[0m"
-# [[ -n "$SCOPE" ]] && echo -e "🎯 Scope:     \033[1;35m$SCOPE\033[0m"
-# [[ -n "$DESCRIPTION" ]] && echo -e "🗒️ Description:\n$DESCRIPTION"
-# echo -e "\n📝 \033[1;34mCommit Preview\033[0m"
-
 
 DESCRIPTION=$(gum write --placeholder "Details (Optional)")
 
