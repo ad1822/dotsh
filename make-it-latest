@@ -2,9 +2,9 @@
 
 set -e  # Stop on error
 
-cd ~/SideQuests/dotsh || exit 1
+cd ~/work/main/dotsh || exit 1
 
-for dir in gh mics sync; do
+for dir in gh mics sync system; do
     echo "📂 Processing $dir"
     for script in "$dir"/*.sh; do
         [ -e "$script" ] || continue
@@ -17,7 +17,7 @@ for dir in gh mics sync; do
     done
 done
 
-for dir in gh mics sync; do
+for dir in gh mics sync system; do
     echo "📤 Copying $dir scripts to /usr/local/bin"
     sudo cp "$dir"/* /usr/local/bin/
 done

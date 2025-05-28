@@ -31,4 +31,6 @@ echo -e "${GREEN}==> Syncing Wallpapers...${RESET}"
 rclone sync -P "$HOME/Pictures/Wallpaper" gdrive:backup/Wallpaper && echo -e "${GREEN}✔ Wallpapers synced!${RESET}\n"
 
 echo -e "${CYAN}==> Syncing Scripts...${RESET}"
-rclone sync -P "$HOME/SideQuests/dotsh" gdrive:backup/dotsh --exclude=".git/**" && echo -e "${GREEN}✔ Scripts synced!${RESET}\n"
+rclone sync -P "$HOME/work/main/dotsh" gdrive:backup/dotsh --exclude=".git/**" && echo -e "${GREEN}✔ Scripts synced!${RESET}\n"
+
+echo -e "${CYAN}==> Syncing Music...${RESET}"
