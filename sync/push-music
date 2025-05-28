@@ -1,0 +1,19 @@
+#!/bin/bash
+
+LINK=$1
+
+YT_LINK='https://music.youtube.com/watch?v='
+FINAL_LINK="${YT_LINK}${LINK}"
+
+yt-dlp --embed-thumbnail --add-metadata \
+--extract-audio --audio-format mp3 \
+-o"$HOME/Music/%(title)s.%(ext)s" \
+"$FINAL_LINK"
+
+
+echo "==> Pushing to cloud"
+rclone copy -P ~/Music gdrive:backup/Music
+
+dunstify -a "Music Sync" "✅ Upload Complete" "Songs pushed to Google Drive." -i media-music
+
+echo $FINAL_LINK
