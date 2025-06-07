@@ -2,9 +2,6 @@
 
 # ---------------------
 # CONFIGURE THESE:
-GITHUB_USERNAME="ad1822"
-GITHUB_PAT="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"
-# ---------------------
 
 # Get current date and date 7 days ago in ISO 8601 format
 NOW=$(date -Iseconds)

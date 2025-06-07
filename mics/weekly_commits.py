@@ -4,10 +4,16 @@ import requests
 import datetime
 import json
 from collections import OrderedDict
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # --- CONFIG ---
-GITHUB_USERNAME = "ad1822"
-GITHUB_PAT = "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"
+
+
+GITHUB_USERNAME = os.getenv("GITHUB_USERNAME")
+GITHUB_PAT = os.getenv("GITHUB_PAT")
 
 # --- DATE SETUP ---
 today = datetime.date.today()
