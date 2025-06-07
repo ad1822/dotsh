@@ -10,8 +10,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # --- CONFIG ---
-
-
 GITHUB_USERNAME = os.getenv("GITHUB_USERNAME")
 GITHUB_PAT = os.getenv("GITHUB_PAT")
 
@@ -51,9 +49,27 @@ headers = {
     "Accept": "application/vnd.github.v4.idl"
 }
 
-# Unicode circle characters2
-CIRCLE_FILLED = "●"
-CIRCLE_EMPTY = "○"
+# GitHub-like color scheme (4 levels of green)
+COLOR_SCHEME = {
+    0: "#ebedf0",   # No contributions (light gray)
+    1: "#9be9a8",   # 1-3 commits (light green)
+    2: "#40c463",   # 4-6 commits (medium green)
+    3: "#30a14e",   # 7-9 commits (dark green)
+    4: "#216e39"    # 10+ commits (darkest green)
+}
+
+def get_color(count):
+    """Get GitHub-like color based on contribution count"""
+    if count == 0:
+        return COLOR_SCHEME[0]
+    elif 1 <= count <= 3:
+        return COLOR_SCHEME[1]
+    elif 4 <= count <= 6:
+        return COLOR_SCHEME[2]
+    elif 7 <= count <= 9:
+        return COLOR_SCHEME[3]
+    else:
+        return COLOR_SCHEME[4]
 
 def get_weekday_name(weekday):
     """Convert weekday number (0-6) to abbreviated name"""
@@ -92,12 +108,13 @@ try:
     total_contributions = 0
 
     for date, count in contributions.items():
-        dots.append(CIRCLE_FILLED if count > 0 else CIRCLE_EMPTY)
+        color = get_color(count)
+        dots.append(f'<span foreground="{color}">●</span>')
         weekday = get_weekday_name(date.weekday())
         tooltip_lines.append(f"{weekday}: {count} contribution{'s' if count != 1 else ''}")
         total_contributions += count
 
-    # Prepare final output
+    # Prepare final output (Waybar-compatible)
     output = {
         "text": " ".join(dots),
         "tooltip": "\n".join([f"GitHub Contributions ({start_of_week} to {today})",
