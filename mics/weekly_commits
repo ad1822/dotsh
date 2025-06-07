@@ -9,17 +9,14 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# --- CONFIG ---
 GITHUB_USERNAME = os.getenv("GITHUB_USERNAME")
 GITHUB_PAT = os.getenv("GITHUB_PAT")
 
-# --- DATE SETUP ---
 today = datetime.date.today()
 start_of_week = today - datetime.timedelta(days=today.weekday())
 from_date = start_of_week.isoformat() + "T00:00:00Z"
 to_date = today.isoformat() + "T23:59:59Z"
 
-# --- GRAPHQL QUERY ---
 query = """
 query($user: String!, $from: DateTime!, $to: DateTime!) {
   user(login: $user) {
@@ -49,7 +46,6 @@ headers = {
     "Accept": "application/vnd.github.v4.idl"
 }
 
-# GitHub-like color scheme (4 levels of green)
 COLOR_SCHEME = {
     0: "#ebedf0",   # No contributions (light gray)
     1: "#9be9a8",   # 1-3 commits (light green)
@@ -76,7 +72,6 @@ def get_weekday_name(weekday):
     return ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"][weekday]
 
 try:
-    # --- API REQUEST ---
     response = requests.post(
         "https://api.github.com/graphql",
         json={"query": query, "variables": variables},
@@ -86,23 +81,19 @@ try:
     response.raise_for_status()
     data = response.json()
 
-    # --- PARSE RESULT ---
     weeks = data["data"]["user"]["contributionsCollection"]["contributionCalendar"]["weeks"]
 
-    # Initialize contributions for all days of the week
     contributions = OrderedDict()
     for i in range(7):
         day = start_of_week + datetime.timedelta(days=i)
         contributions[day] = 0
 
-    # Fill in actual contributions
     for week in weeks:
         for day in week["contributionDays"]:
             date = datetime.date.fromisoformat(day["date"])
             if start_of_week <= date <= today:
                 contributions[date] = day["contributionCount"]
 
-    # Generate heatmap dots and tooltip
     dots = []
     tooltip_lines = []
     total_contributions = 0
@@ -114,7 +105,6 @@ try:
         tooltip_lines.append(f"{weekday}: {count} contribution{'s' if count != 1 else ''}")
         total_contributions += count
 
-    # Prepare final output (Waybar-compatible)
     output = {
         "text": " ".join(dots),
         "tooltip": "\n".join([f"GitHub Contributions ({start_of_week} to {today})",
