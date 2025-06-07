@@ -51,13 +51,13 @@ headers = {
     "Accept": "application/vnd.github.v4.idl"
 }
 
-# Unicode circle characters
+# Unicode circle characters2
 CIRCLE_FILLED = "●"
 CIRCLE_EMPTY = "○"
 
 def get_weekday_name(weekday):
     """Convert weekday number (0-6) to abbreviated name"""
-    return ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][weekday]
+    return ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"][weekday]
 
 try:
     # --- API REQUEST ---
