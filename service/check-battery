@@ -1,0 +1,32 @@
+#!/bin/bash
+
+BATTERY=$(acpi -b | grep -oP '\d+(?=%)')
+CHARGING=$(acpi -b | grep -oP 'Charging|Discharging|Full')
+STATE_FILE="/tmp/.battery_last_state"
+BATTERY_ICON=""
+
+if [[ -f "$STATE_FILE" ]]; then
+    LAST_STATE=$(<"$STATE_FILE")
+else
+    LAST_STATE=""
+fi
+
+echo "$CHARGING" > "$STATE_FILE"
+
+if [[ "$CHARGING" == "Charging" && "$LAST_STATE" != "Charging" ]]; then
+    notify-send -u normal "󰂄 Charging Started" "Battery is now charging." -r 9992
+fi
+
+if [[ "$CHARGING" == "Discharging" && "$LAST_STATE" == "Charging" ]]; then
+    notify-send -u normal "󱟨 Charging Stopped" "Charger unplugged." -r 9993
+fi
+
+if [[ "$BATTERY" -ge 80 && "$CHARGING" == "Charging" ]]; then
+    notify-send "󱃌 Battery Charged" "Battery is fully charged." -i "battery" -r 9991
+    
+    elif [[ "$BATTERY" -le 30 && "$BATTERY" -gt 20 && "$CHARGING" == "Discharging" ]]; then
+    notify-send -u normal "Battery : $BATTERY%" "󱃍 Consider plugging in soon"
+    
+    elif [[ "$BATTERY" -le 20 && "$CHARGING" == "Discharging" ]]; then
+    notify-send -u critical "Battery Critical : $BATTERY%" "⚠️ Charge immediately to avoid shutdown"
+fi
