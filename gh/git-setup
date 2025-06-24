@@ -1,0 +1,5 @@
+#!/bin/bash
+
+
+git config set --global user.name "Ayush"
+git config set --global user.email "ayushdumasia00@gmail.com"
