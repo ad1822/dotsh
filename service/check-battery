@@ -28,5 +28,5 @@ if [[ "$BATTERY" -ge 80 && "$CHARGING" == "Charging" ]]; then
     notify-send -u normal "Battery : $BATTERY%" "󱃍 Consider plugging in soon"
     
     elif [[ "$BATTERY" -le 20 && "$CHARGING" == "Discharging" ]]; then
-    notify-send -u critical "Battery Critical : $BATTERY%" "⚠️ Charge immediately to avoid shutdown"
+    notify-send -u normal "Battery Critical : $BATTERY%" "⚠️ Charge immediately to avoid shutdown"
 fi
