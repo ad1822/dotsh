@@ -12,7 +12,7 @@ cat <<'EOF' | lolcat
 EOF
 
 TARGET="$HOME/Pictures/Wallpaper"
-DEST_DIR="/usr/share/sddm/themes/catppuccin-mocha/backgrounds"
+DEST_DIR="/usr/share/sddm/themes/mocha/backgrounds"
 TEMP_IMG="$HOME/sddm.jpg"
 DEST_FILE="$DEST_DIR/sddm.jpg"
 
