@@ -21,11 +21,11 @@ BLUE="\e[34m"
 YELLOW="\e[33m"
 RESET="\e[0m"
 
-files=("hypr" "git" "waybar" "cava" "fastfetch" "hypridle" "kitty" "k9s" "rofi" "yazi" "starship" "dunst" "pacseek")
+files=("hypr" "fish" "nvim" "git" "waybar" "cava" "fastfetch" "hypridle" "kitty" "k9s" "rofi" "yazi" "starship" "dunst" "pacseek")
 
 for dir in "${files[@]}"; do
-    echo -e "${BLUE}=> Syncing with hyprdots ${YELLOW}${dir}${RESET}"
-    cp -r ~/.config/$dir ~/hyprdots
+  echo -e "${BLUE}=> Syncing with hyprdots ${YELLOW}${dir}${RESET}"
+  cp -r ~/.config/$dir ~/hyprdots
 done
 
 echo -e "${BLUE}=> Syncing with hyprdots ${YELLOW}Local Scripts${RESET}"
