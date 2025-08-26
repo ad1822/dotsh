@@ -3,16 +3,14 @@
 set -e
 
 TYPE=$(gum choose --height=20 --header="Select the commit type:" \
-"feat ✨" "fix 🐛" "fix 🐞" "docs 📝" "docs 📜" "ci 🦊" "logs 🪵"  "style 💅" "style 🎨" "refactor 🔨" "test 🧪" "test 🚦" "chore 🔧" "revert 🔁" "BREAKING CHANGES ❌" "BREAKING CHANGES 🚨")
-
+  "feat " "fix " "fix " "docs " "docs " "ci " "logs " "style " "style " "refactor " "test " "test " "chore " "revert " "BREAKING CHANGES " "BREAKING CHANGES ")
 
 echo -e "🧠 Summary:   \033[1;36m$SUMMARY\033[0m"
 SUMMARY=$(gum input --placeholder "Summary of this change (e.g., Add logging to payment flow)")
 if [[ -z "$SUMMARY" ]]; then
-    echo "❌ Summary is required. Exiting."
-    exit 1
+  echo "❌ Summary is required. Exiting."
+  exit 1
 fi
-
 
 DESCRIPTION=$(gum write --placeholder "Details (Optional)")
 
@@ -27,7 +25,7 @@ echo ""
 [[ -n "$DESCRIPTION" ]] && echo "$DESCRIPTION"
 
 if gum confirm "Commit with above message?"; then
-    git commit -m "$FINAL_SUMMARY" ${DESCRIPTION:+-m "$DESCRIPTION"}
+  git commit -m "$FINAL_SUMMARY" ${DESCRIPTION:+-m "$DESCRIPTION"}
 else
-    echo "❌ Commit cancelled."
+  echo "❌ Commit cancelled."
 fi
