@@ -1,0 +1,36 @@
+#!/bin/bash
+
+PROJECT_DIR=$(
+  fd --type d --max-depth 2 . ~/work ~/.config |
+    fzf --height=100% --border \
+      --preview 'tree -L 1 -C {} | head -200' \
+      --preview-window=right:50%
+)
+if [[ -z "$PROJECT_DIR" ]]; then
+  exit 0
+fi
+
+SESSION_NAME=$(basename "$PROJECT_DIR" | tr '.' '_' | tr -c '[:alnum:]_' '_')
+
+cd "$PROJECT_DIR" || exit 1
+
+switch_to_new() {
+  if [[ -z "$TMUX" ]]; then
+    tmux attach-session -t "$SESSION_NAME" 1>/dev/null
+  else
+    tmux switch-client -t "$SESSION_NAME" 1>/dev/null
+  fi
+}
+
+if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
+  switch_to_new
+else
+  tmux new-session -d -s "$SESSION_NAME" -n main -c "$PROJECT_DIR"
+  tmux new-window -t "$SESSION_NAME":1 -n worker1 -c "$PROJECT_DIR"
+  tmux new-window -t "$SESSION_NAME":2 -n worker2 -c "$PROJECT_DIR"
+  tmux new-window -t "$SESSION_NAME":3 -n logs1 -c "$PROJECT_DIR"
+  tmux new-window -t "$SESSION_NAME":4 -n logs2 -c "$PROJECT_DIR"
+
+  tmux select-window -t "$SESSION_NAME":1
+  switch_to_new
+fi
