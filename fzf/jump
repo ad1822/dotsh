@@ -13,7 +13,5 @@ if [[ ${#selectedfiles[@]} -eq 0 ]]; then
 fi
 IFS='
 '
-echo $selectedfiles
 set -- $selectedfiles
 nvim "$@"
-# nvim "${selectedfiles[@]}"
