@@ -1,16 +1,24 @@
 #!/bin/bash
 
 selectedfiles=$(
-  fd --type f --hidden --max-depth 2 . ~/ |
-    fzf --height=100% -m --border \
+  fd --type f --hidden --exclude .git --exclude node_modules --exclude .cache . /home/ad |
+    fzf --style full --height=100% --border -m \
+      --border --padding 1,1 \
+      --border-label ' Jump ' --input-label ' Input ' --header-label ' File Type ' \
       --preview="bat --color=always {}" \
-      --preview-window=right:50%
+      --preview-window=right:60% \
+      --color 'border:#aaaaaa,label:#cccccc' \
+      --color 'preview-border:#9999cc,preview-label:#ccccff' \
+      --color 'list-border:#f38ba8,list-label:#99cc99' \
+      --color 'input-border:#cba6f7,input-label:#89dceb' \
+      --color 'header-border:#6699cc,header-label:#99ccff'
 )
 [ -z "$selectedfiles" ] && exit 0
 
 if [[ ${#selectedfiles[@]} -eq 0 ]]; then
   exit 0
 fi
+
 IFS='
 '
 set -- $selectedfiles
