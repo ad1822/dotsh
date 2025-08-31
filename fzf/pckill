@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+ps -eo pid,comm --sort=pid | tail -n +2 |
+  fzf --style=full \
+    --color=fg+:blue,fg:white,bg+:black,header:cyan \
+    --preview="ps -p {1} -o pid,ppid,cmd,%mem,%cpu" \
+    --height 60% --ansi |
+  awk '{print $2}' | xargs kill -9
