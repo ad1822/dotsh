@@ -3,7 +3,7 @@
 selectedfiles=$(
   fd --type f --hidden --exclude .git --exclude node_modules --exclude .cache . /home/ad |
     fzf --style full --height=100% --border -m \
-      --border --padding 1,1 \
+      --border --padding 0,0 \
       --border-label ' Jump ' --input-label ' Input ' --header-label ' File Type ' \
       --preview="bat --color=always {}" \
       --preview-window=right:60% \
