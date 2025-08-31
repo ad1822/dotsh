@@ -1,13 +1,48 @@
 #!/usr/bin/env bash
 
-fzf --ansi --style=full \
-  --preview 'git diff --color=always -- {} | diff-so-fancy' \
-  --bind "enter:execute:git diff --color=always -- {} | less -R" \
-  --header 'Select a file to view changes (Enter to open diff)' \
-  --border --padding 1,1 \
-  --border-label ' Git diff ' --input-label ' Search File ' \
-  --color 'border:#aaaaaa,label:#cccccc' \
-  --color 'preview-border:#9999cc,preview-label:#ccccff' \
-  --color 'list-border:#f38ba8,list-label:#99cc99' \
-  --color 'input-border:#cba6f7,input-label:#89dceb' \
-  --color 'header-border:#6699cc,header-label:#99ccff'
+if [[ -z "$1" ]]; then
+  echo "usage: Add branch name to push"
+fi
+
+repo_root=$(git rev-parse --show-toplevel)
+echo "$repo_root"
+
+list_changed_files() {
+  (
+    cd "$repo_root" || exit 1
+    git diff --name-only
+    git ls-files --other --exclude-standard
+  ) | sort -u
+}
+
+while true; do
+  staged_files=$(list_changed_files | fzf \
+    --ansi \
+    --style=full \
+    --multi \
+    --no-sort \
+    --prompt='Stage > ' \
+    --header-first \
+    --header='ENTER to stage selected files (CTRL-C to quit)' \
+    --preview "git -C '$repo_root' diff --color=always -- {} | diff-so-fancy" \
+    --bind 'enter:accept' \
+    --border --padding=0,0 \
+    --border-label ' Git Diff ' --input-label ' Search File ' \
+    --color 'border:#aaaaaa,label:#cccccc' \
+    --color 'preview-border:#9999cc,preview-label:#ccccff' \
+    --color 'list-border:#f38ba8,list-label:#99cc99' \
+    --color 'input-border:#cba6f7,input-label:#89dceb' \
+    --color 'header-border:#6699cc,header-label:#99ccff')
+
+  [[ -z "$staged_files" ]] && break
+
+  IFS='
+  '
+
+  set -- $staged_files
+  git -C "$repo_root" add "$@"
+done
+
+git commit
+
+git push $1
