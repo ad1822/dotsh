@@ -1,0 +1,42 @@
+#!/bin/bash
+
+set -euo pipefail # Stop on error, unset vars are errors, fail on pipe errors
+
+TARGET_DIR="$HOME/.local/bin"
+
+# Ensure target directory exists
+mkdir -p "$TARGET_DIR"
+
+cd ~/work/main/dotsh || {
+  echo "Directory ~/work/main/dotsh not found"
+  exit 1
+}
+
+# List of directories to process
+dirs=(fzf gh mics sync system)
+
+# Rename scripts (remove .sh extension) recursively
+for dir in "${dirs[@]}"; do
+  echo "📂 Processing $dir..."
+  find "$dir" -type f -name "*.sh" | while read -r script; do
+    filename=$(basename "$script" .sh)
+    newpath="$(dirname "$script")/$filename"
+
+    if [ "$script" != "$newpath" ]; then
+      mv "$script" "$newpath"
+      echo "==> Renamed: $script → $newpath"
+    fi
+  done
+done
+
+# Copy all files recursively to target, flattening structure
+for dir in "${dirs[@]}"; do
+  echo "📤 Copying $dir scripts to $TARGET_DIR..."
+  find "$dir" -type f | while read -r file; do
+    # Preserve executable permission
+    chmod +x "$file"
+    cp -f "$file" "$TARGET_DIR/"
+  done
+done
+
+echo "✅ All done! Your scripts are now globally executable"
