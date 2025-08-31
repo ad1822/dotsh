@@ -15,4 +15,4 @@ git log --color=always --format='%C(auto)%h%d %s %C(green)%C(bold)%cr%C(reset) %
     --bind "enter:execute:echo {} | grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c 'git show --color=always % | diff-so-fancy | less -R'" \
     --bind "ctrl-y:execute-silent:echo {} | grep -o '[a-f0-9]\{7\}' | head -1 | xclip" \
     --bind "ctrl-x:execute:echo {} | grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c 'git checkout %'" \
-    --bind "ctrl-o:execute:echo {} | grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c '\$open_cmd https://github.$(git config remote.origin.url | cut -f2 -d. | tr ':' /)/commit/%'"
+    --bind "ctrl-o:execute:echo {} | grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c '\zen-browser https://github.$(git config remote.origin.url | cut -f2 -d. | tr ':' /)/commit/%'"

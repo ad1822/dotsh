@@ -18,10 +18,9 @@ fzf_git() {
     --ansi \
     --style=full \
     --multi \
+    --reverse \
     --no-sort \
     --prompt='Stage > ' \
-    --header-first \
-    --header='ENTER to stage selected files (ESC to quit)' \
     --preview "git -C '$repo_root' diff --color=always -- {} | diff-so-fancy" \
     --bind "ctrl-u:preview-up,ctrl-d:preview-down" \
     --bind 'enter:accept' \
