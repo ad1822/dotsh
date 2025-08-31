@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 PROJECT_DIR=$(
   fd --type d --max-depth 5 . ~/work ~/.config |
@@ -13,7 +13,6 @@ PROJECT_DIR=$(
       --color 'input-border:#cba6f7,input-label:#89dceb' \
       --color 'header-border:#6699cc,header-label:#99ccff'
 )
-# --border-label ' Tmux Session ' --input-label ' Input ' --header-label ' File Type ' \
 if [[ -z "$PROJECT_DIR" ]]; then
   exit 0
 fi

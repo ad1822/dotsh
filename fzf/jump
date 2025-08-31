@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 selectedfiles=$(
   fd --type f --hidden --exclude .git --exclude node_modules --exclude .cache . /home/ad |
