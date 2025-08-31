@@ -7,6 +7,7 @@ PROJECT_DIR=$(
       --border-label ' [ Tmux Session ] ' --input-label ' [ Input ] ' --header-label ' [ File Type ] ' \
       --preview 'tree -L 1 -C {} | head -200' \
       --preview-window=right:50% \
+      --bind "ctrl-u:preview-up,ctrl-d:preview-down" \
       --color 'border:#aaaaaa,label:#cccccc' \
       --color 'preview-border:#9999cc,preview-label:#ccccff' \
       --color 'list-border:#f38ba8,list-label:#99cc99' \

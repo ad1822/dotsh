@@ -12,6 +12,7 @@ branch_line=$(
       --header='ENTER to checkout branch, D to delete branch' \
       --border --padding=0,0 \
       --preview 'git log $(echo {} | sed "s/^[* ]*//" | awk "{print \$1}") --graph --color --format="%C(white)%h - %C(green)%cs - %C(blue)%s%C(red)%d"' \
+      --bind "ctrl-u:preview-up,ctrl-d:preview-down" \
       --border-label ' [ Git Branch ] ' --input-label ' [ Search Branch ] ' \
       --color 'border:#aaaaaa,label:#cccccc' \
       --color 'preview-border:#9999cc,preview-label:#ccccff' \

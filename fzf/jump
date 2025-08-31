@@ -6,6 +6,7 @@ selectedfiles=$(
       --border --padding 0,0 \
       --border-label ' [ Jump ] ' --input-label ' [ Input ] ' --header-label ' [ File Type ] ' \
       --preview="bat --color=always {}" \
+      --bind "ctrl-u:preview-up,ctrl-d:preview-down" \
       --preview-window=right:60% \
       --color 'border:#aaaaaa,label:#cccccc' \
       --color 'preview-border:#9999cc,preview-label:#ccccff' \

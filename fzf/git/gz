@@ -2,8 +2,9 @@
 set -e
 
 BRANCH="$1"
-repo_root=$(git rev-parse --show-toplevel)
+echo "$BRANCH"
 
+repo_root=$(git rev-parse --show-toplevel)
 list_changed_files() {
   (
     cd "$repo_root" || exit 1
@@ -22,6 +23,7 @@ fzf_git() {
     --header-first \
     --header='ENTER to stage selected files (ESC to quit)' \
     --preview "git -C '$repo_root' diff --color=always -- {} | diff-so-fancy" \
+    --bind "ctrl-u:preview-up,ctrl-d:preview-down" \
     --bind 'enter:accept' \
     --border --padding=0,0 \
     --border-label ' [ Git Diff ] ' --input-label ' [ Search File ] ' \
