@@ -4,7 +4,7 @@ PROJECT_DIR=$(
   fd --type d --max-depth 5 . ~/work ~/.config |
     fzf --style full --height=100% --border \
       --border --padding 1,1 \
-      --border-label ' Tmux Session ' --input-label ' Input ' --header-label ' File Type ' \
+      --border-label ' [ Tmux Session ] ' --input-label ' [ Input ] ' --header-label ' [ File Type ] ' \
       --preview 'tree -L 1 -C {} | head -200' \
       --preview-window=right:50% \
       --color 'border:#aaaaaa,label:#cccccc' \

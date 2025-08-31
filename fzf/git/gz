@@ -24,7 +24,7 @@ fzf_git() {
     --preview "git -C '$repo_root' diff --color=always -- {} | diff-so-fancy" \
     --bind 'enter:accept' \
     --border --padding=0,0 \
-    --border-label ' Git Diff ' --input-label ' Search File ' \
+    --border-label ' [ Git Diff ] ' --input-label ' [ Search File ] ' \
     --color 'border:#aaaaaa,label:#cccccc' \
     --color 'preview-border:#9999cc,preview-label:#ccccff' \
     --color 'list-border:#f38ba8,list-label:#99cc99' \

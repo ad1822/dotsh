@@ -3,7 +3,7 @@
 git log --color=always --format='%C(auto)%h%d %s %C(green)%C(bold)%cr%C(reset) %C(blue)%an' |
   fzf --no-sort --border --tiebreak=index --no-multi --ansi --style=full \
     --border --padding 0,0 \
-    --border-label ' Git Logs ' --input-label ' Search Commit' \
+    --border-label ' [ Git Logs ] ' --input-label ' [ Search Commit] ' \
     --color 'border:#aaaaaa,label:#cccccc' \
     --color 'preview-border:#9999cc,preview-label:#ccccff' \
     --color 'list-border:#f38ba8,list-label:#99cc99' \
