@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+branch_line=$(
+  git branch --all --color \
+    --format="%(HEAD) %(color:yellow)%(refname:short) %(color:green)%(committerdate:short) %(color:blue)%(subject)" |
+    fzf \
+      --style=full \
+      --ansi \
+      --prompt='Branch > ' \
+      --header-first \
+      --header='ENTER to checkout branch, D to delete branch' \
+      --border --padding=0,0 \
+      --preview 'git log $(echo {} | sed "s/^[* ]*//" | awk "{print \$1}") --graph --color --format="%C(white)%h - %C(green)%cs - %C(blue)%s%C(red)%d"' \
+      --border-label ' Git Branch ' --input-label ' Search Branch ' \
+      --color 'border:#aaaaaa,label:#cccccc' \
+      --color 'preview-border:#9999cc,preview-label:#ccccff' \
+      --color 'list-border:#f38ba8,list-label:#99cc99' \
+      --color 'input-border:#cba6f7,input-label:#89dceb' \
+      --bind 'ctrl-d:execute(git branch -d $(echo {} | awk "{print \$1}"))' \
+      --bind 'enter:accept' \
+      --color 'header-border:#6699cc,header-label:#99ccff'
+)
+
+[ -z "$branch_line" ] && exit 0
+
+branch_name=$(echo "$branch_line" | awk '{print $1}')
+
+git checkout "$branch_name"
+
+exit 0
