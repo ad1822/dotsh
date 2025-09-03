@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 PROJECT_DIR=$(
-  fd --type d --max-depth 5 . ~/work ~/.config |
+  fd --type d --max-depth 5 . /home/ad |
     fzf --style full --height=100% --border \
       --border --padding 1,1 \
       --border-label ' [ Tmux Session ] ' --input-label ' [ Input ] ' --header-label ' [ File Type ] ' \

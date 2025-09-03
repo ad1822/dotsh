@@ -9,10 +9,10 @@ git log --color=always --format='%C(auto)%h%d %s %C(green)%C(bold)%cr%C(reset) %
     --color 'list-border:#f38ba8,list-label:#99cc99' \
     --color 'input-border:#cba6f7,input-label:#89dceb' \
     --color 'header-border:#6699cc,header-label:#99ccff' \
-    --bind "ctrl-u:preview-up,ctrl-d:preview-down" \
     --preview="echo {} | grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c 'git show --color=always % | diff-so-fancy'" \
     --header="ENTER to view, CTRL-Y to copy hash, CTRL-O to open on GitHub, CTRL-X to checkout, CTRL-C to exit" \
     --bind "enter:execute:echo {} | grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c 'git show --color=always % | diff-so-fancy | less -R'" \
+    --bind "ctrl-u:preview-up,ctrl-d:preview-down" \
     --bind "ctrl-y:execute-silent:echo {} | grep -o '[a-f0-9]\{7\}' | head -1 | xclip" \
     --bind "ctrl-x:execute:echo {} | grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c 'git checkout %'" \
     --bind "ctrl-o:execute:echo {} | grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c '\zen-browser https://github.$(git config remote.origin.url | cut -f2 -d. | tr ':' /)/commit/%'"
