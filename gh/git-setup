@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 sudo pacman -S git --noconfirm
 git config set --global user.name "Ayush"

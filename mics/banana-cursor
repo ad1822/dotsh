@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 sudo pacman -S yarn
 yay -S python-clickgen
@@ -13,3 +13,4 @@ cd ../../
 yarn install
 yarn generate
 tar xf bin/banana-all.tar.xz -C ~/.local/share/icons/
+

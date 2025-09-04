@@ -1,7 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-
-cat << 'EOF' | lolcat
+cat <<'EOF' | lolcat
           _
          | |
  _ __ ___| | ___  _ __   ___
@@ -20,11 +19,11 @@ RESET="\e[0m"
 files=("hypr" "git" "waybar" "cava" "fastfetch" "gtk-3.0" "gtk-4.0" "hypridle" "kitty" "k9s" "rofi" "yazi" "starship" "dunst")
 
 echo -e "${PURPLE}==> Syncing Obsidian Vault...${RESET}"
-rclone sync -P "$HOME/Obsidian Vault" gdrive:backup/Obsidian  --exclude=".git/**" && echo -e "${GREEN}✔ Obsidian Vault synced!${RESET}\n"
+rclone sync -P "$HOME/Obsidian Vault" gdrive:backup/Obsidian --exclude=".git/**" && echo -e "${GREEN}✔ Obsidian Vault synced!${RESET}\n"
 
 for dir in "${files[@]}"; do
-    echo -e "${CYAN}==> Syncing ${YELLOW}${dir}${CYAN} config...${RESET}"
-    rclone sync -P "$HOME/.config/$dir" "gdrive:backup/config/$dir" && echo -e "${GREEN}✔ ${dir} synced!${RESET}\n"
+  echo -e "${CYAN}==> Syncing ${YELLOW}${dir}${CYAN} config...${RESET}"
+  rclone sync -P "$HOME/.config/$dir" "gdrive:backup/config/$dir" && echo -e "${GREEN}✔ ${dir} synced!${RESET}\n"
 done
 
 echo -e "${GREEN}==> Syncing Wallpapers...${RESET}"
