@@ -34,6 +34,7 @@ if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
   switch_to_new
 else
   tmux new-session -d -s "$SESSION_NAME" -n main -c "$PROJECT_DIR"
+  tmux send-keys -t "$SESSION_NAME:main" nvim C-m
   tmux new-window -t "$SESSION_NAME":1 -n worker1 -c "$PROJECT_DIR"
   tmux new-window -t "$SESSION_NAME":2 -n worker2 -c "$PROJECT_DIR"
   tmux new-window -t "$SESSION_NAME":3 -n logs1 -c "$PROJECT_DIR"
