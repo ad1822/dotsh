@@ -15,7 +15,7 @@ RESET="\e[0m"
 
 hyprdots="$HOME/work/main/dotsh/sync/sync-dots"
 repo="$HOME/work/main/dotsh/sync/push-dots"
-cloud="$HOME/work/main/dotsh/sync/rsync"
+cloud="$HOME/work/main/dotsh/sync/rsync-custom"
 obsidian="$HOME/work/main/dotsh/sync/sync-obsidian-vault"
 
 notify-send -u normal -a "Sync" "🔄 Starting: Hyprdots Sync"

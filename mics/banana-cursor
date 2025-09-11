@@ -5,6 +5,7 @@ yay -S python-clickgen
 sudo pacman -S zip
 
 git clone https://github.com/ful1e5/banana-cursor
+wait 10
 cd banana-cursor
 yarn add puppeteer --ingnore-scripts
 cd node_modules/puppeteer
@@ -13,4 +14,4 @@ cd ../../
 yarn install
 yarn generate
 tar xf bin/banana-all.tar.xz -C ~/.local/share/icons/
-
+#
