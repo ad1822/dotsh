@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 PROJECT_DIR=$(
-  fd --type d --max-depth 5 . /home/ad |
+  fd --type d --hidden --exclude .git --exclude node_modules --exclude .cache --max-depth 5 . /home/ad |
     fzf --style full --height=100% --border \
       --border --padding 1,1 \
       --border-label ' [ Tmux Session ] ' --input-label ' [ Input ] ' --header-label ' [ File Type ] ' \
@@ -35,11 +35,11 @@ if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
 else
   tmux new-session -d -s "$SESSION_NAME" -n main -c "$PROJECT_DIR"
   tmux send-keys -t "$SESSION_NAME:main" nvim C-m
-  tmux new-window -t "$SESSION_NAME":1 -n worker1 -c "$PROJECT_DIR"
-  tmux new-window -t "$SESSION_NAME":2 -n worker2 -c "$PROJECT_DIR"
-  tmux new-window -t "$SESSION_NAME":3 -n logs1 -c "$PROJECT_DIR"
-  tmux new-window -t "$SESSION_NAME":4 -n logs2 -c "$PROJECT_DIR"
+  tmux new-window -t "$SESSION_NAME":0 -n worker1 -c "$PROJECT_DIR"
+  tmux new-window -t "$SESSION_NAME":1 -n worker2 -c "$PROJECT_DIR"
+  tmux new-window -t "$SESSION_NAME":2 -n logs1 -c "$PROJECT_DIR"
+  tmux new-window -t "$SESSION_NAME":3 -n logs2 -c "$PROJECT_DIR"
 
-  tmux select-window -t "$SESSION_NAME":1
+  tmux select-window -t "$SESSION_NAME":0
   switch_to_new
 fi
