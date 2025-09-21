@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+if [[ -z "$1" ]]; then
+  echo "Usage: $0 <project-name>"
+  exit 1
+fi
+
+root_dir="/home/ad/tmp"
+proj_dir="$root_dir/$1"
+
+# Create base tmp dir if missing
+mkdir -p "$root_dir"
+
+# If project already exists, just enter it
+if [[ -d "$proj_dir" ]]; then
+  echo "Project already exists: $proj_dir"
+else
+  mkdir "$proj_dir"
+  cd "$proj_dir"
+  go mod init "$1" >/dev/null 2>&1
+  echo 'package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hello from '$1'")
+}' >main.go
+fi
+
+cd "$proj_dir"
+
+# Open in nvim, then run
+nvim main.go
+go run .
