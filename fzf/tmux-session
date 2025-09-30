@@ -2,7 +2,7 @@
 
 PROJECT_DIR=$(
   fd --type d --hidden --exclude .git --exclude node_modules --exclude .cache --max-depth 5 . /home/ad |
-    fzf --style full --height=100% --border \
+    fzf --style minimal --height=100% \
       --border --padding 1,1 \
       --border-label ' [ Tmux Session ] ' --input-label ' [ Input ] ' --header-label ' [ File Type ] ' \
       --preview 'tree -L 1 -C {} | head -200' \
