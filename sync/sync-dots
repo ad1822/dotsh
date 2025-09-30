@@ -21,15 +21,13 @@ BLUE="\e[34m"
 YELLOW="\e[33m"
 RESET="\e[0m"
 
-files=("atuin" "fish" "hypr" "git" "waybar" "cava" "fastfetch" "hypridle" "kitty" "mpv" "nvim" "systemd" "tmux" "wakapi" "k9s" "rofi" "yazi" "starship" "dunst")
+# files=("atuin" "fish" "hypr" "git" "waybar" "cava" "fastfetch" "hypridle" "kitty" "mpv" "nvim" "systemd" "tmux" "wakapi" "k9s" "rofi" "yazi" "starship" "dunst")
+files=("atuin" "fish" "hypr" "git" "waybar" "kitty" "nvim" "tmux" "rofi" "yazi" "starship" "dunst")
 
 for dir in "${files[@]}"; do
   echo -e "${BLUE}=> Syncing with hyprdots ${YELLOW}${dir}${RESET}"
   cp -r ~/.config/$dir ~/hyprdots
 done
 
-echo -e "${BLUE}=> Syncing with hyprdots ${YELLOW}Local Scripts${RESET}"
-cp -r "$HOME/.local/bin" ~/hyprdots
-
-echo -e "${BLUE}=> Syncing with hyprdots ${YELLOW}.zshrc${RESET}"
-cp -r "$HOME/.zshrc" ~/hyprdots/zsh/.zshrc
+# echo -e "${BLUE}=> Syncing with hyprdots ${YELLOW}Local Scripts${RESET}"
+# cp -r "$HOME/.local/bin" ~/hyprdots
