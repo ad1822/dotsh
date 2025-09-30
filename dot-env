@@ -13,7 +13,7 @@ cd ~/work/main/dotsh || {
 }
 
 # List of directories to process
-dirs=(fzf gh mics sync system)
+dirs=(fzf gh mics sync system omarchy)
 
 # Rename scripts (remove .sh extension) recursively
 for dir in "${dirs[@]}"; do
