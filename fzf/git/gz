@@ -15,6 +15,7 @@ list_changed_files() {
 
 fzf_git() {
   staged_files=$(list_changed_files | fzf \
+    --style=minimal \
     --ansi \
     --multi \
     --reverse \
