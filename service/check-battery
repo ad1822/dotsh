@@ -6,27 +6,34 @@ STATE_FILE="/tmp/.battery_last_state"
 BATTERY_ICON=""
 
 if [[ -f "$STATE_FILE" ]]; then
-    LAST_STATE=$(<"$STATE_FILE")
+  LAST_STATE=$(<"$STATE_FILE")
 else
-    LAST_STATE=""
+  LAST_STATE=""
 fi
 
-echo "$CHARGING" > "$STATE_FILE"
+echo "$CHARGING" >"$STATE_FILE"
 
+ICON_DIR="$HOME/.config/dunst/assets"
+
+# Charging started
 if [[ "$CHARGING" == "Charging" && "$LAST_STATE" != "Charging" ]]; then
-    notify-send -u normal "󰂄 Charging Started" "Battery is now charging." -r 9992
+  notify-send -i "$ICON_DIR/battery-charging.svg" -u normal "Charging Started" "" -r 9992
 fi
 
+# Charging stopped
 if [[ "$CHARGING" == "Discharging" && "$LAST_STATE" == "Charging" ]]; then
-    notify-send -u normal "󱟨 Charging Stopped" "Charger unplugged." -r 9993
+  notify-send -i "$ICON_DIR/battery-low.svg" -u normal "Charging Stopped" "" -r 9993
 fi
 
+# Battery full
 if [[ "$BATTERY" -ge 80 && "$CHARGING" == "Charging" ]]; then
-    notify-send "󱃌 Battery Charged" "Battery is fully charged." -i "battery" -r 9991
-    
-    elif [[ "$BATTERY" -le 30 && "$BATTERY" -gt 20 && "$CHARGING" == "Discharging" ]]; then
-    notify-send -u normal "Battery : $BATTERY%" "󱃍 Consider plugging in soon"
-    
-    elif [[ "$BATTERY" -le 20 && "$CHARGING" == "Discharging" ]]; then
-    notify-send -u normal "Battery Critical : $BATTERY%" "⚠️ Charge immediately to avoid shutdown"
+  notify-send -i "$ICON_DIR/battery-full.svg" -u normal "Battery Charged" "" -r 9991
+
+# Medium low
+elif [[ "$BATTERY" -le 30 && "$BATTERY" -gt 20 && "$CHARGING" == "Discharging" ]]; then
+  notify-send -i "$ICON_DIR/battery-low.svg" -u normal "Low Battery" "" -r 9994
+
+# Critical
+elif [[ "$BATTERY" -le 20 && "$CHARGING" == "Discharging" ]]; then
+  notify-send -i "$ICON_DIR/battery-low.svg" -u normal "Battery Critical " "" -r 9991
 fi
