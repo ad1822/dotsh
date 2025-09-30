@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 git log --color=always --format='%C(auto)%h%d %s %C(green)%C(bold)%cr%C(reset) %C(blue)%an' |
-  fzf --no-sort --border --tiebreak=index --no-multi --ansi --style=full \
-    --border --padding 0,0 \
+  fzf --no-sort --tiebreak=index --no-multi --ansi \
     --border-label ' [ Git Logs ] ' --input-label ' [ Search Commit] ' \
     --color 'border:#aaaaaa,label:#cccccc' \
     --color 'preview-border:#9999cc,preview-label:#ccccff' \
@@ -11,9 +10,11 @@ git log --color=always --format='%C(auto)%h%d %s %C(green)%C(bold)%cr%C(reset) %
     --color 'header-border:#6699cc,header-label:#99ccff' \
     --preview="echo {} | grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c 'git show --color=always % | diff-so-fancy'" \
     --header="ENTER to view, CTRL-Y to copy hash, CTRL-O to open on GitHub, CTRL-X to checkout, CTRL-C to exit" \
-    --header-first
---bind "enter:execute:echo {} | grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c 'git show --color=always % | diff-so-fancy | less -R'" \
-  --bind "ctrl-u:preview-up,ctrl-d:preview-down" \
-  --bind "ctrl-y:execute-silent:echo {} | grep -o '[a-f0-9]\{7\}' | head -1 | xclip" \
-  --bind "ctrl-x:execute:echo {} | grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c 'git checkout %'" \
-  --bind "ctrl-o:execute:echo {} | grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c '\zen-browser https://github.$(git config remote.origin.url | cut -f2 -d. | tr ':' /)/commit/%'"
+    \
+    --bind "enter:execute:echo {} | grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c 'git show --color=always % | diff-so-fancy | less -R'" \
+    --bind "ctrl-u:preview-up,ctrl-d:preview-down" \
+    --bind "ctrl-y:execute-silent:echo {} | grep -o '[a-f0-9]\{7\}' | head -1 | wl-copy" \
+    --bind "ctrl-x:execute:echo {} | grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c 'git checkout %'" \
+    --bind "ctrl-o:execute:echo {} | grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c '\zen-browser https://github.$(
+      git config remote.origin.url | cut -f2 -d. | tr ':' / # --header-first \
+    )/commit/%'"

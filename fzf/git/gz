@@ -16,15 +16,13 @@ list_changed_files() {
 fzf_git() {
   staged_files=$(list_changed_files | fzf \
     --ansi \
-    --style=full \
     --multi \
     --reverse \
     --no-sort \
-    --prompt='Stage > ' \
+    --prompt='Stage ~> ' \
     --preview "git -C '$repo_root' diff --color=always -- {} | diff-so-fancy" \
     --bind "ctrl-u:preview-up,ctrl-d:preview-down" \
     --bind 'enter:accept' \
-    --border --padding=0,0 \
     --border-label ' [ Git Diff ] ' --input-label ' [ Search File ] ' \
     --color 'border:#aaaaaa,label:#cccccc' \
     --color 'preview-border:#9999cc,preview-label:#ccccff' \

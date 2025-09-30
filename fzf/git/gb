@@ -8,17 +8,12 @@ branch_line=$(
       --ansi \
       --prompt='Branch > ' \
       --preview-label=' [ Commits ] ' \
-      --header-first \
-      --header='ENTER to checkout branch, D to delete branch' \
-      --border --padding=0,0 \
       --preview 'git log $(echo {} | sed "s/^[* ]*//" | awk "{print \$1}") --graph --color --format="%C(white)%h - %C(green)%cs - %C(blue)%s%C(red)%d"' \
       --border-label ' [ Git Branch ] ' --input-label ' [ Search Branch ] ' \
       --color 'border:#aaaaaa,label:#cccccc' \
       --color 'preview-border:#9999cc,preview-label:#ccccff' \
       --color 'list-border:#f38ba8,list-label:#99cc99' \
       --color 'input-border:#cba6f7,input-label:#89dceb' \
-      --bind 'ctrl-d:execute(git branch -d $(echo {} | awk "{print \$1}"))' \
-      --bind 'enter:accept' \
       --bind "ctrl-u:preview-up,ctrl-d:preview-down" \
       --color 'header-border:#6699cc,header-label:#99ccff'
 )
