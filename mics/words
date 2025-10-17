@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+word="$1"
+
+if [ -z "$1" ]; then
+  echo "Usage: $0 <word>"
+  exit 1
+fi
+
+word="$1"
+xdg-open "https://www.google.com/search?q=$word"
+file="$HOME/Zettelkasten/03 - Permenant/English words.md"
+
+# Fetch word definition from Free Dictionary API
+response=$(curl -s "https://freedictionaryapi.com/api/v1/entries/en/$word")
+# echo $response
+
+meaning=$(echo $response | jq -r '.entries[0].senses[0].definition')
+echo $meaning
+
+if [ -z "$meaning" ] || [ "$meaning" = "null" ]; then
+  echo "No valid definition found for '$word'."
+  exit 1
+fi
+
+echo "**$word** - $meaning" >>"$HOME/Zettelkasten/03 - Permenant/English words.md"
+espeak-ng $word
+
+# sed -i "/----/i **$word** - $meaning\n" "$HOME/Zettelkasten/03 - Permenant/English words.md"
