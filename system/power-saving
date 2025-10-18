@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+mode="$1"
+
+if [[ "$mode" == "powermode" ]]; then
+  echo "[*] Enabling Power Saving Mode..."
+
+  killall waybar hyprpaper 2>/dev/null
+  sudo tlp start
+  brightnessctl set 50%
+  sudo cpupower frequency-set -g powersave
+
+  echo "Power saving mode enabled."
+else
+  echo "[*] Restoring Normal Mode..."
+  waybar &
+  disown
+  hyprpaper &
+  disown
+  brightnessctl set 100%
+  sudo cpupower frequency-set -g performance
+  sudo tlp start
+
+  echo "Normal mode restored."
+fi
