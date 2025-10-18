@@ -23,7 +23,10 @@ if [ -z "$meaning" ] || [ "$meaning" = "null" ]; then
   exit 1
 fi
 
-echo "**$word** - $meaning" >>"$HOME/Zettelkasten/03 - Permenant/English words.md"
+echo "> [!word]
+> **$word** 
+> $meaning" >>"$HOME/Zettelkasten/03 - Permenant/vocabulary.md"
+
 espeak-ng $word
 
 # sed -i "/----/i **$word** - $meaning\n" "$HOME/Zettelkasten/03 - Permenant/English words.md"

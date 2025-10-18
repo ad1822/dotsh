@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+while IFS= read -r word; do
+  # Skip empty lines
+  [ -z "$word" ] && continue
+
+  echo "Fetching definition for: $word"
+
+  # Fetch word definition from Free Dictionary API
+  response=$(curl -s "https://freedictionaryapi.com/api/v1/entries/en/$word")
+
+  # Extract meaning safely
+  meaning=$(echo "$response" | jq -r '.entries[0].senses[0].definition')
+
+  if [ -z "$meaning" ] || [ "$meaning" = "null" ]; then
+    echo "No valid definition found for '$word'. Skipping."
+    continue
+  fi
+
+  # Append to your vocabulary file
+  file="$HOME/Zettelkasten/03 - Permenant/vocabulary.md"
+  echo "> [!word]
+> **$word** 
+> $meaning
+" >>"$file"
+
+done <"$HOME/Zettelkasten/03 - Permenant/words.md"
