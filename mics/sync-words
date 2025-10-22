@@ -6,6 +6,8 @@ while IFS= read -r word; do
 
   echo "Fetching definition for: $word"
 
+  word="${word,,}"
+
   # Fetch word definition from Free Dictionary API
   response=$(curl -s "https://freedictionaryapi.com/api/v1/entries/en/$word")
 
@@ -18,10 +20,12 @@ while IFS= read -r word; do
   fi
 
   # Append to your vocabulary file
-  file="$HOME/Zettelkasten/03 - Permenant/vocabulary.md"
-  echo "> [!word]
-> **$word** 
-> $meaning
-" >>"$file"
+  file="$HOME/Zettelkasten/08 - Books/The subtle art of not giving a fuck/vocabulary.md"
+  echo ">> [!note]+ **$word** 
+>> $meaning
+>" >>"$file"
 
 done <"$HOME/Zettelkasten/03 - Permenant/words.md"
+
+file="$HOME/Zettelkasten/03 - Permenant/words.md"
+echo ' ' >"$file"

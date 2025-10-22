@@ -10,6 +10,7 @@ fi
 word="$1"
 xdg-open "https://www.google.com/search?q=$word"
 file="$HOME/Zettelkasten/03 - Permenant/English words.md"
+word="${word,,}"
 
 # Fetch word definition from Free Dictionary API
 response=$(curl -s "https://freedictionaryapi.com/api/v1/entries/en/$word")
@@ -23,9 +24,10 @@ if [ -z "$meaning" ] || [ "$meaning" = "null" ]; then
   exit 1
 fi
 
-echo "> [!word]
-> **$word** 
-> $meaning" >>"$HOME/Zettelkasten/03 - Permenant/vocabulary.md"
+file="$HOME/Zettelkasten/08 - Books/The subtle art of not giving a fuck/vocabulary.md"
+echo ">> [!note]+ **$word** 
+>> $meaning
+>" >>"$file"
 
 espeak-ng $word
 
