@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+note_folder="/home/ad/Downloads/notesfromyt"
+vault="/home/ad/Zettelkasten/10 - Youtube"
+
+mv "$note_folder"/* "$vault"/
