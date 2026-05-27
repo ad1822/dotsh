@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+NAME=$1
+
+IP=192.168.$2
+
+echo $NAME $IP
+
+sudo sed -i "/$NAME/c\\$IP $NAME" /etc/hosts

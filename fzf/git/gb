@@ -4,7 +4,6 @@ branch_line=$(
   git branch --all --color \
     --format="%(HEAD) %(color:yellow)%(refname:short) %(color:green)%(committerdate:short) %(color:blue)%(subject)" |
     fzf \
-      --style=minimal \
       --ansi \
       --prompt='Branch > ' \
       --preview-label=' [ Commits ] ' \

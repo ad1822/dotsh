@@ -28,7 +28,7 @@ fi
 
 echo -e "\n\e[1;36m 📦 Git status:\e[0m"
 
-git ss
+git status
 git add --patch
 bash ~/work/main/dotsh/gh/commit
 PUSH_OUTPUT=$(git push origin "$1" 2>&1)
