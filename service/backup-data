@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+export DISPLAY=:0
+export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus"
+
+LOG_FILE="/home/ad/work/side/ansible-dotfiles/logs/backup.log"
+PROJECT_DIR="/home/ad/work/side/ansible-dotfiles"
+
+notify-send "Backup" "Starting backup process"
+
+echo $(date) >"$LOG_FILE"
+
+cd "$PROJECT_DIR"
+ansible-playbook -vvv playbooks/backup-data.yml >>"$LOG_FILE" 2>&1
+
+notify-send "Backup" "Backup completed successfully"
