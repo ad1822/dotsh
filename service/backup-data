@@ -8,11 +8,42 @@ export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus"
 LOG_FILE="/home/ad/work/side/ansible-dotfiles/logs/backup.log"
 PROJECT_DIR="/home/ad/work/side/ansible-dotfiles"
 
-notify-send "Backup" "Starting backup process"
+notify-send "📂 Backup" "Starting backup process"
 
-echo $(date) >"$LOG_FILE"
+mkdir -p "$(dirname "$LOG_FILE")"
 
-cd "$PROJECT_DIR"
-ansible-playbook -vvv playbooks/backup-data.yml >>"$LOG_FILE" 2>&1
+{
+  echo "===== $(date) ====="
 
-notify-send "Backup" "Backup completed successfully"
+  cd "$PROJECT_DIR"
+  ansible-playbook playbooks/backup-data.yml 2>&1
+
+  OUTPUT=$(ansible-playbook playbooks/backup-data.yml 2>&1)
+  EXIT_CODE=$?
+
+  echo "$OUTPUT"
+
+  echo
+  echo "===== SUMMARY ====="
+
+  echo "$OUTPUT" | grep -E \
+    "PLAY RECAP|ok=|changed=|failed=|unreachable=" -A 5
+
+  CHANGED_FILES=$(echo "$OUTPUT" | grep -E "changed:" || true)
+
+  echo
+  echo "===== CHANGED TASKS ====="
+  echo "$CHANGED_FILES"
+
+  SUMMARY=$(echo "$OUTPUT" | grep -E "changed=|failed=" | tail -1)
+
+  CHANGED=$(echo "$SUMMARY" | grep -oP 'changed=\K[0-9]+')
+  FAILED=$(echo "$SUMMARY" | grep -oP 'failed=\K[0-9]+')
+
+  if [ "$FAILED" -eq 0 ]; then
+    notify-send "📂 Backup Complete" "Changed: $CHANGED"
+  else
+    notify-send "❌ Backup Failed" "Failed: $FAILED | Changed: $CHANGED"
+  fi
+
+} >"$LOG_FILE" 2>&1
