@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Don't launch another screensaver if one already exists
+hyprctl clients -j | jq -e '.[] | .class == "screensaver"' >/dev/null && exit 0
+
+# hyprctl dispatch 'hl.dsp.exec_cmd([[kitty --class=screensaver --start-as=fullscreen  --override font_size=20 --override window_padding_width=0 -e draw-screensaver ]], { workspace = "special" })'
+kitty --class=screensaver --start-as=fullscreen --override font_size=20 --override window_padding_width=0 -e draw-screensaver

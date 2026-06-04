@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+cleanup() {
+  pkill -x tte 2>/dev/null
+
+  hyprctl clients -j |
+    jq -r '.[] | select(.class=="screensaver") | .pid' |
+    xargs -r kill
+
+  exit 0
+}
+
+trap cleanup SIGINT SIGTERM SIGHUP SIGQUIT
+
+printf '\033]11;rgb:11/11/1b\007'
+
+while true; do
+  tte \
+    -i ~/work/main/dotsh/misc/screensaver.txt \
+    --frame-rate 60 \
+    --canvas-width 0 \
+    --canvas-height 0 \
+    --reuse-canvas \
+    --anchor-canvas c \
+    --anchor-text c \
+    --random-effect \
+    --no-eol \
+    --no-restore-cursor &
+
+  tte_pid=$!
+
+  while kill -0 "$tte_pid" 2>/dev/null; do
+    if read -rsn1 -t 0.1; then
+      cleanup
+    fi
+
+    active_class=$(hyprctl activewindow -j 2>/dev/null |
+      jq -r '.class // ""')
+
+    if [ "$active_class" != "screensaver" ]; then
+      cleanup
+    fi
+  done
+
+  sleep 0.5
+done

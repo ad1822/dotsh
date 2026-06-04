@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+ACTUAL_PATH=$(whereis $1 | cut -f2 -d " ")
+
+notify-send "Going to $ACTUAL_PATH"
+
+nvim $ACTUAL_PATH
